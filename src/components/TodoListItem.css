@@ -1,0 +1,11 @@
+.form-control {
+  border-color: transparent !important;
+}
+
+.list-group-item {
+  padding: 0 !important;
+}
+
+.todo-item {
+  border: 0 !important;
+}

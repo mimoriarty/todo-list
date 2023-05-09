@@ -1,0 +1,8 @@
+#main-logo {
+  width: 50px;
+}
+
+.navbar > div {
+  display: flex;
+  align-items: self-end;
+}
