@@ -7,8 +7,8 @@ export default function Calendar({ value, name, label, changeFn }) {
         name={name}
         className="form-control border"
         type="datetime-local"
-        defaultValue={value}
-        onChange={changeFn}
+        value={value}
+        onChange={(e) => changeFn(e)}
       />
     </div>
   )

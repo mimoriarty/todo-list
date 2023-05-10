@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Modal } from 'bootstrap';
+import React, { useState } from "react";
 
-import TodoListItem from "../components/TodoListItem";
-import { deleteTodo, getTodos, saveTodo, updateTodo } from "../services/todos";
+import { saveTodo, updateTodo } from "../services/todos";
 import Calendar from "../components/Calendar";
+import TodosList from "../components/TodosList";
 
 export default function Todo() {
   const initialValues = {
@@ -11,20 +10,13 @@ export default function Todo() {
     category: "",
     startDate: "",
     endDate: "",
-    state: null,
+    state: "",
     priority: "",
-    id: null,
+    id: "",
   };
-  const [todos, setTodos] = useState([]);
   const [formValues, setFormValues] = useState(initialValues);
-  const [reload, setReload] = useState(false);
 
-  useEffect(() => {
-    setFormValues(initialValues); 
-    getTodos().then(res => setTodos(res));
-  }, [reload]);
-
-  const onHandleChange = ({ target }) => {
+  function onHandleChange({ target }) {
     const { type, value, name, checked } = target;
     const val =  type === "checkbox" ? Boolean(checked) : value;
     
@@ -32,31 +24,28 @@ export default function Todo() {
       ...formValues,
       [name]: val,
     });
-  };
-  const onHandleSubmit = () => {
+  }
+
+  function onHandleSubmit() {
     if (formValues.name.length > 0) {
       try {
         if (formValues.id) {
           updateTodo(formValues);
-          alert('Todo edited successfully');
         } else {
           saveTodo(formValues);
-          alert('Todo added successfully');
-
         }
-        setReload(!reload);
+
+        setFormValues(initialValues);
+        alert('Todo added successfully');
       } catch (error) {
         alert('Sorry errors happens, try again later!');
       }
     }
   }
-  const onHandleEdit = (data) => {
+
+  function onHandleEdit(data) {
     setFormValues(data);
-  };
-  const onHandleRemove = ({ id }) => {
-    deleteTodo(id);
-    setReload(!reload);
-  };
+  }
 
   return(
     <div className="p-3">
@@ -69,12 +58,12 @@ export default function Todo() {
             type="text"
             name="name"
             placeholder="name"
-            defaultValue={formValues.name}
-            onChange={onHandleChange}
+            value={formValues.name}
+            onChange={(e) => onHandleChange(e)}
           />
         </div>
-        <Calendar name="starDate" label="Init date" value={formValues.startDate} changeFn={onHandleChange} />
-        <Calendar name="endDate" label="End date" value={formValues.endDate} changeFn={onHandleChange} />
+        <Calendar name="starDate" label="Init date" value={formValues.startDate} changeFn={(e) => onHandleChange(e)} />
+        <Calendar name="endDate" label="End date" value={formValues.endDate} changeFn={(e) => onHandleChange(e)} />
         <div className="mb-3 col-3 col-sm-8">
           <label htmlFor="priority" className="form-label">Priority</label>
           <input
@@ -84,8 +73,8 @@ export default function Todo() {
             min={1}
             max={3}
             step={1}
-            defaultValue={formValues.priority}
-            onChange={onHandleChange}
+            value={formValues.priority}
+            onChange={(e) => onHandleChange(e)}
           />
         </div>
         <div className="mb-3 col-3 col-sm-8 form-check">
@@ -93,21 +82,14 @@ export default function Todo() {
             className="form-check-input border"
             type="checkbox"
             name="state"
-            defaultValue={formValues.state}
-            onChange={onHandleChange}
+            value={formValues.state}
+            onChange={(e) => onHandleChange(e)}
           />
           <label htmlFor="state" className="form-check-label">State</label>
         </div>
         <button type="button" className="btn btn-warning btn-sm" onClick={onHandleSubmit}>Add todo</button>
       </div>
-      <ul className="list-group">
-        {todos.map((todo, index) => <TodoListItem
-          key={index}
-          editFn={() => onHandleEdit(todo)}
-          removeFn={() => onHandleRemove(todo)}
-          todo={todo}
-        />)}
-      </ul>
+      <TodosList editTodo={onHandleEdit} submitAction={onHandleSubmit} />
     </div>
   );
 }
