@@ -18,13 +18,15 @@ export default function TodosList({ editTodo, submitAction }) {
   }, [submitAction, reload]);
 
   return(
-    <ul className="list-group">
-      {todos.map((todo, index) => <TodoListItem
-        key={index}
-        editFn={() => editTodo(todo)}
-        removeFn={() => onHandleRemove(todo.id)}
-        todo={todo}
-      />)}
-    </ul>
+    <div>
+      {todos.length === 0 ? <p>Try adding some todos!!</p> : <ul className="list-group todos-list">
+        {todos.map((todo, index) => <TodoListItem
+          key={index}
+          editFn={() => editTodo(todo)}
+          removeFn={() => onHandleRemove(todo.id)}
+          todo={todo}
+        />)}
+      </ul>}
+    </div>
   )
 }

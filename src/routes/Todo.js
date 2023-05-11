@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import moment from 'moment';
 
 import { saveTodo, updateTodo } from "../services/todos";
-import Calendar from "../components/Calendar";
+import { getCategories } from "../services/categories";
 import TodosList from "../components/TodosList";
+import Modal from "../components/Modal";
+
+const nameValidation = /^[a-zA-Z]{0,18}$/;
 
 export default function Todo() {
   const initialValues = {
     name: "",
-    category: "",
+    category: "default",
     startDate: "",
     endDate: "",
     state: "",
@@ -15,6 +19,44 @@ export default function Todo() {
     id: "",
   };
   const [formValues, setFormValues] = useState(initialValues);
+  const [modal, setModal] = useState(false);
+  const [categories, setCategories] = useState();
+  const [formErrors, setFormErrors] = useState({});
+  const today = moment();
+  const validateForm = () => {
+    const error = {};
+    let res = true;
+
+    if (!nameValidation.test(formValues.name)) {
+      res = false;
+      error.name = "Todo must be word chars only";
+    }
+
+    if (today.diff(moment(formValues.startDate)) >= 0) {
+      res = false;
+      error.startDate = "Please choose a valid date";
+    }
+
+    if (moment(formValues.startDate).diff(moment(formValues.endDate)) >= 0) {
+      res = false;
+      error.endDate = "Todo cannot end before it starts!!";
+    }
+
+    setFormErrors(error);
+
+    return res;
+  };
+
+  useEffect(() => {
+    getCategories().then(res => setCategories(res));
+  }, []);
+
+  function toggleModal() {
+    if (modal) {
+      setFormValues(initialValues);
+    }
+    setModal(!modal);
+  }
 
   function onHandleChange({ target }) {
     const { type, value, name, checked } = target;
@@ -27,6 +69,10 @@ export default function Todo() {
   }
 
   function onHandleSubmit() {
+    const isValid = validateForm();
+
+    if (!isValid) return;
+
     if (formValues.name.length > 0) {
       try {
         if (formValues.id) {
@@ -36,6 +82,7 @@ export default function Todo() {
         }
 
         setFormValues(initialValues);
+        toggleModal();
         alert('Todo added successfully');
       } catch (error) {
         alert('Sorry errors happens, try again later!');
@@ -44,51 +91,31 @@ export default function Todo() {
   }
 
   function onHandleEdit(data) {
+    toggleModal();
     setFormValues(data);
   }
 
   return(
     <div className="p-3">
-      <h2>New Todo</h2>
-      <div className="p-3 mb-4 border">
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">Name</label>
-          <input
-            className="form-control border"
-            type="text"
-            name="name"
-            placeholder="name"
-            value={formValues.name}
-            onChange={(e) => onHandleChange(e)}
-          />
-        </div>
-        <Calendar name="starDate" label="Init date" value={formValues.startDate} changeFn={(e) => onHandleChange(e)} />
-        <Calendar name="endDate" label="End date" value={formValues.endDate} changeFn={(e) => onHandleChange(e)} />
-        <div className="mb-3 col-3 col-sm-8">
-          <label htmlFor="priority" className="form-label">Priority</label>
-          <input
-            className="form-control border"
-            type="range"
-            name="priority"
-            min={1}
-            max={3}
-            step={1}
-            value={formValues.priority}
-            onChange={(e) => onHandleChange(e)}
-          />
-        </div>
-        <div className="mb-3 col-3 col-sm-8 form-check">
-          <input
-            className="form-check-input border"
-            type="checkbox"
-            name="state"
-            value={formValues.state}
-            onChange={(e) => onHandleChange(e)}
-          />
-          <label htmlFor="state" className="form-check-label">State</label>
-        </div>
-        <button type="button" className="btn btn-warning btn-sm" onClick={onHandleSubmit}>Add todo</button>
+      <div className="alert alert-secondary" role="alert">
+        Create new todos and start being productive again.<br />
+        <button
+          type="button"
+          className="btn btn-warning btn-sm"
+          onClick={() => onHandleEdit(formValues)}
+        >
+          Add new todo!
+        </button>
       </div>
+      <Modal
+        isOpen={modal}
+        toggleModal={toggleModal}
+        todo={formValues}
+        categories={categories}
+        errors={formErrors}
+        changeFn={onHandleChange}
+        submitFn={onHandleSubmit}
+      />
       <TodosList editTodo={onHandleEdit} submitAction={onHandleSubmit} />
     </div>
   );

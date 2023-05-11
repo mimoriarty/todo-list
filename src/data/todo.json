@@ -13,34 +13,14 @@
   ],
   "todos": [
     {
-      "name": "hair styling",
-      "category": "",
-      "startDate": "",
-      "endDate": "2023-05-09T18:30",
-      "state": null,
+      "name": "save git project",
+      "category": "1",
+      "startDate": "2023-05-11T12:03",
+      "endDate": "2023-05-18T22:03",
+      "state": false,
       "priority": "3",
       "id": 1,
-      "starDate": "2023-05-09T17:30"
-    },
-    {
-      "name": "bring Julia from school!!",
-      "category": "",
-      "startDate": "",
-      "endDate": "2023-05-09T15:20",
-      "state": null,
-      "priority": "",
-      "id": 2,
-      "starDate": "2023-05-09T14:45"
-    },
-    {
-      "name": "buy endra subs",
-      "category": "",
-      "startDate": "",
-      "endDate": "2023-05-19T21:45",
-      "state": null,
-      "priority": "",
-      "id": 3,
-      "starDate": "2023-05-10T21:45"
+      "": "1"
     }
   ]
 }
