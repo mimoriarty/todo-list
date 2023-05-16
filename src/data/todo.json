@@ -17,7 +17,7 @@
       "category": "1",
       "startDate": "2023-05-11T12:03",
       "endDate": "2023-05-18T22:03",
-      "state": false,
+      "completed": false,
       "priority": "3",
       "id": 1,
       "": "1"

@@ -102,7 +102,7 @@ export default class Modal extends Component {
                 {this.props.errors.endDate &&
                   <FontAwesomeIcon icon={faExclamationTriangle} />} {this.props.errors.endDate}
               </div>
-              <div className="mb-3 col-3 col-sm-8">
+              <div className="mb-3 col-9">
                 <label htmlFor="priority" className="form-label">Priority</label>
                 <input
                   className="form-control border"
@@ -115,7 +115,7 @@ export default class Modal extends Component {
                   onChange={(e) => this.props.changeFn(e)}
                 />
               </div>
-              {this.props.categories && <div className="mb-3 col-3 col-sm-8">
+              {this.props.categories && <div className="mb-3 col-9">
                 <select
                   className="form-select"
                   name="category"
@@ -131,11 +131,11 @@ export default class Modal extends Component {
                 <input
                   className="form-check-input border"
                   type="checkbox"
-                  name="state"
-                  value={this.props.todo.state}
+                  name="completed"
+                  value={this.props.todo.completed}
                   onChange={(e) => this.props.changeFn(e)}
                 />
-                <label htmlFor="state" className="form-check-label">State</label>
+                <label htmlFor="completed" className="form-check-label">Completed</label>
               </div>
             </div>
             <div className="modal-footer">

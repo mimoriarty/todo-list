@@ -8,7 +8,7 @@ export default function TodoListItem({
   editFn,
   removeFn,
 }) {
-  const { name, state } = todo;
+  const { name, completed } = todo;
 
   return (
     <li className="list-group-item todo-item mb-1">
@@ -23,8 +23,8 @@ export default function TodoListItem({
         <input
           className="form-check-input form-control-sm form-check-reverse me-2"
           type="checkbox"
-          name="state"
-          value={state === "done"}
+          name="completed"
+          value={completed}
           readOnly={true}
         />
         <button type="button" className="btn btn-warning btn-sm me-2">

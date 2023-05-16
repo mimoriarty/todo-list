@@ -1,6 +1,6 @@
 export default function Calendar({ value, name, label, changeFn, error }) {
   return(
-    <div className={Boolean(error) ? "mb-3 col-3 col-sm-8 form-error" : "mb-3 col-3 col-sm-8"}>
+    <div className={Boolean(error) ? "mb-3 col-9 form-error" : "mb-3 col-9"}>
       <label htmlFor={name} className="form-label">{label}</label>
       <input
         id={name}

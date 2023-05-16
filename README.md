@@ -4,10 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Progress
 
-11-05-2023 => Move todo creation and editing to modal component
-11-05-2023 => Add dates and name validation
+11-05-2023 => Move todo creation and editing to modal component\
+11-05-2023 => Add dates and name validation\
 
-09-05-2023 => Style changes
+09-05-2023 => Style changes\
 09-05-2023 => Init git repo
 09-05-2023 => Implement calendar and todo view
 
@@ -31,7 +31,7 @@ You may also see any lint errors in the console.
 Deploys json-server mock.\
 Open [http://localhost:5000](http://localhost:5000) to view it in your browser.
 
-Use /todos or /categories endpoint to view data persisted in your browser
+Use /todos or /categories endpoint to view data persisted in your browser.\
 You may also see any lint errors in the console.
 
 ### `npm test`

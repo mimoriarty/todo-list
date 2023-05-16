@@ -14,7 +14,7 @@ export default function Todo() {
     category: "default",
     startDate: "",
     endDate: "",
-    state: "",
+    completed: "",
     priority: "",
     id: "",
   };
