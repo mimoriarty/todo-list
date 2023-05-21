@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useContext } from "react";
 import { NavLink } from 'react-router-dom';
 
+import { ThemeContext } from "../App";
 import { getCategories } from '../services/categories';
 import todoIcon from '../assets/todoIcon.png';
 
@@ -8,6 +10,8 @@ import './NavBar.css';
 
 export default function NavBar() {
   const [categories, setCategories] = useState([]);
+  const { theme } = useContext(ThemeContext);
+  const navbarsClasses = `navbar pe-1 ${theme === "dark" && "navbar-dark bg-dark"}`;
 
   useEffect(() => {
     getCategories().then(res => setCategories(res));
@@ -22,12 +26,12 @@ export default function NavBar() {
   }
 
   return(
-    <header className="navbar">
+    <header className={navbarsClasses}>
       <div>
         <img id="main-logo" src={todoIcon} alt="main logo" />
         <h1 className="fs-4 fw-light">Todo <span className="fw-semibold text-warning">lite</span></h1>
       </div>
-      <button className="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button className={"navbar-toggler " + (theme === "light" && "bg-light")} type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse mt-2" id="navbarNav">
@@ -52,6 +56,9 @@ export default function NavBar() {
               </li>
             )}
           </ul>
+        </li>
+        <li className="nav-item">
+          <NavLink to="/settings" className="nav-link">Settings</NavLink>
         </li>
       </ul>
     </div>

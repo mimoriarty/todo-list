@@ -6,3 +6,8 @@
   display: flex;
   align-items: self-end;
 }
+
+.navbar.bg-dark {
+  background-color: #323232 !important;
+  color: #fff;
+}

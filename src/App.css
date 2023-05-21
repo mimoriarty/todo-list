@@ -2,3 +2,21 @@
   -webkit-box-shadow: 0px 0px 4px 3px rgb(255, 193, 7); 
   box-shadow: 0px 0px 4px 3px rgb(255, 193, 7);
 }
+
+.container.dark,
+.container.dark .d-flex {
+  background-color: #323232;
+  color: #fff;
+}
+
+.container.dark .btn:not(:disabled),
+.container.dark .modal-content,
+.container.dark input {
+  background-color: #666;
+  color: #fff;
+}
+
+.container.dark button:hover {
+  background-color: gold !important;
+  color: #323232 !important;
+}

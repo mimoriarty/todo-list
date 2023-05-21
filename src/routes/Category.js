@@ -71,7 +71,7 @@ export default function Category() {
       <h2 className="text-center">Categories</h2>
       <hr />
       <div className="row">
-        <div className="col-6">
+        <div className="col-md-6 col-sm-12">
           <div className="mb-3">
             <label htmlFor="cat" className="form-label">New category</label>
             <input 

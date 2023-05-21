@@ -32,7 +32,7 @@ export default function CategoriesList({ editCategory, submitAction }) {
   }
 
   return(
-    <div className="col-6">
+    <div className="col-md-6 col-sm-12">
       <h3 className="fs-5">Categories list</h3>
       <ul className="list-group">
         {categories.map((cat, i) => <CategoryListItem

@@ -21,8 +21,6 @@ export default function Report() {
     return moment(a.date).diff(moment(b.date));
   });
 
-  debugger;
-
   return(
     <div>
       <h1>reports screen: {category}</h1>

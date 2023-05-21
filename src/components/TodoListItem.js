@@ -7,8 +7,9 @@ export default function TodoListItem({
   todo,
   editFn,
   removeFn,
+  completeFn,
 }) {
-  const { name, completed } = todo;
+  const { name, completed, id } = todo;
 
   return (
     <li className="list-group-item todo-item mb-1">
@@ -25,13 +26,13 @@ export default function TodoListItem({
           type="checkbox"
           name="completed"
           value={completed}
-          readOnly={true}
+          onChange={(e) => completeFn(e, id)}
         />
         <button type="button" className="btn btn-warning btn-sm me-2">
-          <FontAwesomeIcon icon={faPen} onClick={() => editFn(todo.id)} />
+          <FontAwesomeIcon icon={faPen} onClick={() => editFn(id)} />
         </button>
         <button type="button" className="btn btn-danger btn-sm">
-          <FontAwesomeIcon icon={faTrash} onClick={() => removeFn(todo.id)} />
+          <FontAwesomeIcon icon={faTrash} onClick={() => removeFn(id)} />
         </button>
       </div>
     </li>

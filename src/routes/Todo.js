@@ -6,7 +6,7 @@ import { getCategories } from "../services/categories";
 import TodosList from "../components/TodosList";
 import Modal from "../components/Modal";
 
-const nameValidation = /^[a-zA-Z]{0,18}$/;
+const nameValidation = /^[a-zA-Z\s]{0,18}$/;
 
 export default function Todo() {
   const initialValues = {
@@ -116,7 +116,10 @@ export default function Todo() {
         changeFn={onHandleChange}
         submitFn={onHandleSubmit}
       />
-      <TodosList editTodo={onHandleEdit} submitAction={onHandleSubmit} />
+      <TodosList
+        editTodo={onHandleEdit}
+        submitAction={onHandleSubmit}
+      />
     </div>
   );
 }
